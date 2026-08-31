@@ -2,85 +2,142 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Meu Gráfico em Tempo Real</title>
-    <!-- Aqui nós "puxamos" a ferramenta de gráficos da internet -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experimento: GTX 970</title>
+    <!-- Ferramenta de gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        /* Estilos do site (Dark Mode) */
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f9;
-            margin-top: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
         }
-        .caixa-do-grafico {
-            width: 80%;
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
+        header {
+            background-color: #76b900; /* Verde estilo NVIDIA */
             padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            color: #121212;
+            font-size: 28px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #1e1e1e;
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .texto-experimento {
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        .texto-experimento h2 {
+            color: #76b900;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .grafico-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
-    <h1>Monitoramento ao Vivo</h1>
-    <p>O gráfico abaixo está se atualizando sozinho a cada segundo!</p>
+    <header>
+        <h1>Análise de Desempenho: GTX 970 Modificada</h1>
+    </header>
 
-    <div class="caixa-do-grafico">
-        <!-- Aqui é onde o gráfico vai aparecer -->
-        <canvas id="graficoAoVivo"></canvas>
+    <div class="container">
+        <!-- ÁREA PARA VOCÊ ESCREVER O SEU TEXTO -->
+        <div class="texto-experimento">
+            <h2>Sobre o Experimento</h2>
+            <p>Neste experimento, avaliamos o ganho de desempenho de uma placa de vídeo <strong>NVIDIA GTX 970</strong> original de fábrica (4GB VRAM) em comparação com uma versão modificada fisicamente para <strong>8GB de VRAM</strong>.</p>
+            
+            <p>Além da modificação de hardware (solda de novos chips de memória), a placa de 8GB também foi submetida a um forte <em>Overclock</em>, aumentando a frequência do núcleo (Core Clock) e das memórias (Memory Clock).</p>
+            
+            <p>O objetivo é demonstrar como o limite de VRAM afeta os jogos modernos e o quanto essa modificação ajuda a estabilizar e aumentar os quadros por segundo (FPS). Veja os resultados no gráfico abaixo:</p>
+        </div>
+
+        <!-- ONDE O GRÁFICO VAI APARECER -->
+        <div class="grafico-container">
+            <canvas id="graficoComparativo"></canvas>
+        </div>
     </div>
 
     <script>
-        // Preparamos o espaço para desenhar
-        const espacoGrafico = document.getElementById('graficoAoVivo').getContext('2d');
-        
-        // Criamos as listas vazias para o tempo (eixo X) e os valores (eixo Y)
-        const tempos = ['Agora'];
-        const valores = [50];
+        const ctx = document.getElementById('graficoComparativo').getContext('2d');
 
-        // Configuramos como o gráfico deve se parecer
-        const meuGrafico = new Chart(espacoGrafico, {
+        // Nomes dos jogos testados
+        const jogosTestados = ['Cyberpunk 2077', 'Red Dead Redemption 2', 'The Last of Us', 'Resident Evil 4', 'Alan Wake 2'];
+        
+        // FPS da placa ORIGINAL (4GB)
+        const fpsOriginal = [32, 45, 24, 40, 20];
+        
+        // FPS da placa MODIFICADA (8GB + Overclock)
+        const fpsModificada = [48, 62, 38, 58, 35];
+
+        new Chart(ctx, {
             type: 'line',
             data: {
-                labels: tempos,
-                datasets: [{
-                    label: 'Energia do Sistema',
-                    data: valores,
-                    borderColor: '#ff0055', // Cor da linha (Rosa/Vermelho)
-                    backgroundColor: 'rgba(255, 0, 85, 0.2)', // Cor do preenchimento
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4 // Deixa a linha curvada e suave
-                }]
+                labels: jogosTestados,
+                datasets: [
+                    {
+                        label: 'GTX 970 - 4GB (Stock)', // Primeira Linha
+                        data: fpsOriginal,
+                        borderColor: '#888888', // Cor Cinza
+                        backgroundColor: 'rgba(136, 136, 136, 0.2)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3 // Deixa a linha levemente curvada
+                    },
+                    {
+                        label: 'GTX 970 - 8GB (Mod + OC)', // Segunda Linha
+                        data: fpsModificada,
+                        borderColor: '#76b900', // Verde NVIDIA
+                        backgroundColor: 'rgba(118, 185, 0, 0.2)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3
+                    }
+                ]
             },
             options: {
-                animation: { duration: 0 } // Desliga a animação inicial para não bugar no tempo real
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2500, // Tempo da animação ao entrar na página (2.5 segundos)
+                    easing: 'easeOutQuart' // Estilo da animação (começa rápido e termina suave)
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Taxa de Quadros (FPS)', color: '#e0e0e0' },
+                        ticks: { color: '#aaaaaa' }
+                    },
+                    x: {
+                        ticks: { color: '#aaaaaa' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: '#ffffff', font: { size: 14 } }
+                    },
+                    tooltip: {
+                        mode: 'index', // Ao passar o mouse, mostra os dados das duas linhas juntos
+                        intersect: false
+                    }
+                }
             }
         });
-
-        // Esta é a função que repete a cada 1 segundo (1000 milissegundos)
-        setInterval(() => {
-            // Pega a hora exata de agora
-            const horaAtual = new Date().toLocaleTimeString();
-            // Cria um número aleatório entre 10 e 90 para simular um dado chegando
-            const novoValor = Math.floor(Math.random() * 80) + 10;
-
-            // Adiciona a nova hora e o novo valor no gráfico
-            meuGrafico.data.labels.push(horaAtual);
-            meuGrafico.data.datasets[0].data.push(novoValor);
-
-            // Se o gráfico tiver mais de 10 pontos, apagamos o mais antigo para ele "andar"
-            if (meuGrafico.data.labels.length > 10) {
-                meuGrafico.data.labels.shift();
-                meuGrafico.data.datasets[0].data.shift();
-            }
-
-            // Manda o gráfico se atualizar na tela
-            meuGrafico.update();
-        }, 1000);
     </script>
 
 </body>
