@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Meu Gráfico em Tempo Real</title>
+    <!-- Aqui nós "puxamos" a ferramenta de gráficos da internet -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            margin-top: 50px;
+        }
+        .caixa-do-grafico {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Monitoramento ao Vivo</h1>
+    <p>O gráfico abaixo está se atualizando sozinho a cada segundo!</p>
+
+    <div class="caixa-do-grafico">
+        <!-- Aqui é onde o gráfico vai aparecer -->
+        <canvas id="graficoAoVivo"></canvas>
+    </div>
+
+    <script>
+        // Preparamos o espaço para desenhar
+        const espacoGrafico = document.getElementById('graficoAoVivo').getContext('2d');
+        
+        // Criamos as listas vazias para o tempo (eixo X) e os valores (eixo Y)
+        const tempos = ['Agora'];
+        const valores = [50];
+
+        // Configuramos como o gráfico deve se parecer
+        const meuGrafico = new Chart(espacoGrafico, {
+            type: 'line',
+            data: {
+                labels: tempos,
+                datasets: [{
+                    label: 'Energia do Sistema',
+                    data: valores,
+                    borderColor: '#ff0055', // Cor da linha (Rosa/Vermelho)
+                    backgroundColor: 'rgba(255, 0, 85, 0.2)', // Cor do preenchimento
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4 // Deixa a linha curvada e suave
+                }]
+            },
+            options: {
+                animation: { duration: 0 } // Desliga a animação inicial para não bugar no tempo real
+            }
+        });
+
+        // Esta é a função que repete a cada 1 segundo (1000 milissegundos)
+        setInterval(() => {
+            // Pega a hora exata de agora
+            const horaAtual = new Date().toLocaleTimeString();
+            // Cria um número aleatório entre 10 e 90 para simular um dado chegando
+            const novoValor = Math.floor(Math.random() * 80) + 10;
+
+            // Adiciona a nova hora e o novo valor no gráfico
+            meuGrafico.data.labels.push(horaAtual);
+            meuGrafico.data.datasets[0].data.push(novoValor);
+
+            // Se o gráfico tiver mais de 10 pontos, apagamos o mais antigo para ele "andar"
+            if (meuGrafico.data.labels.length > 10) {
+                meuGrafico.data.labels.shift();
+                meuGrafico.data.datasets[0].data.shift();
+            }
+
+            // Manda o gráfico se atualizar na tela
+            meuGrafico.update();
+        }, 1000);
+    </script>
+
+</body>
+</html>
