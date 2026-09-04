@@ -13,6 +13,7 @@
             --text-main: #e0e0e0;
             --text-muted: #aaaaaa;
         }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--dark-bg);
@@ -24,102 +25,119 @@
         }
 
         /* ==========================================
-           1. ESTILOS DA TELA DE INTRODUÇÃO (SPLASH)
+           1. INTRODUÇÃO ESTILO APPLE (SCROLL)
            ========================================== */
-        #splash-screen {
-            position: fixed;
+        .intro-container {
+            position: relative;
+        }
+
+        .sticky-bg {
+            position: sticky;
             top: 0;
             left: 0;
             width: 100%;
+            height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .sticky-bg img {
+            width: 100%;
             height: 100%;
-            background-color: var(--dark-bg);
+            object-fit: cover;
+            opacity: 0.5; /* Deixa a imagem mais escura para o texto brilhar */
+            transform: scale(1.1); /* Um leve zoom para ficar cinematográfico */
+        }
+
+        /* Degradê para suavizar a transição pro conteúdo principal */
+        .sticky-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 30vh;
+            background: linear-gradient(to bottom, rgba(18,18,18,0) 0%, rgba(18,18,18,1) 100%);
+        }
+
+        .scroll-step {
+            position: relative;
+            z-index: 1;
+            height: 100vh; /* Cada passo tem a altura exata da tela */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-        .splash-content {
-            text-align: center;
-        }
-        .splash-logo {
-            max-width: 250px; /* Tamanho da logo no centro da tela */
-            height: auto;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(118, 185, 0, 0.3);
-            border-radius: 10px;
-        }
-        .splash-text {
-            color: var(--nvidia-green);
-            font-size: 24px;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #333;
-            border-top: 5px solid var(--nvidia-green);
-            border-radius: 50%;
-            margin: 20px auto 0 auto;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .fade-out {
-            opacity: 0;
-            visibility: hidden;
         }
 
-        /* ==========================================
-           2. ESTILOS DO CABEÇALHO (BANNER)
-           ========================================== */
-        header {
-            /* Imagem como fundo do cabeçalho */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("ChatGPT Image 3 de set. de 2026, 21_17_17.png");
-            background-size: cover;          
-            background-position: center;     
-            background-repeat: no-repeat;
-            
-            padding: 80px 20px; /* Altura do banner */
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-            border-bottom: 4px solid var(--nvidia-green);
-        }
-        h1 {
-            margin: 0;
+        .scroll-text {
             color: #ffffff;
-            font-size: 36px;
+            font-size: 3rem;
+            text-align: center;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0px 4px 15px rgba(0,0,0,0.9);
+            padding: 0 20px;
+            
+            /* Animação inicial escondida */
+            opacity: 0;
+            transform: translateY(100px) scale(0.9);
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Classe ativada pelo JavaScript quando o texto entra na tela */
+        .scroll-text.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .scroll-text span {
+            color: var(--nvidia-green);
         }
 
         /* ==========================================
-           3. ESTILOS GERAIS DO CONTEÚDO
+           2. CONTEÚDO PRINCIPAL
            ========================================== */
+        .main-content {
+            position: relative;
+            z-index: 2;
+            background-color: var(--dark-bg); /* Cobre a imagem de fundo quando rolar */
+            padding-bottom: 50px;
+        }
+
         .container {
             max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
+
         .card {
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             border-left: 5px solid var(--nvidia-green);
+            
+            /* Efeito de revelar as cartas igual na Apple */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
         }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         h2 {
             color: var(--nvidia-green);
             border-bottom: 1px solid #333;
             padding-bottom: 10px;
             margin-top: 0;
+            font-size: 2rem;
         }
+
         .tech-specs {
             display: flex;
             flex-wrap: wrap;
@@ -128,100 +146,135 @@
         }
         .spec-box {
             background: #2a2a2a;
-            padding: 15px 20px;
+            padding: 20px;
             border-radius: 8px;
             flex: 1 1 calc(50% - 20px);
+            transition: transform 0.3s ease;
+        }
+        .spec-box:hover {
+            transform: translateY(-5px);
         }
         .spec-box h3 {
             margin-top: 0;
             color: #fff;
-            font-size: 16px;
+            font-size: 1.1rem;
         }
         .spec-box p {
             margin: 5px 0 0 0;
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 0.95rem;
         }
         .grafico-wrapper {
             position: relative;
             height: 450px;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 30px;
         }
         .highlight {
             color: var(--nvidia-green);
             font-weight: bold;
         }
+
+        /* Responsividade para celulares */
+        @media (max-width: 768px) {
+            .scroll-text { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- TELA DE INTRODUÇÃO (FADE OUT) -->
-    <div id="splash-screen">
-        <div class="splash-content">
-            <!-- A mesma imagem é usada aqui na tela de carregamento -->
-            <img src="ChatGPT Image 3 de set. de 2026, 21_17_17.png" alt="Logo de Carregamento" class="splash-logo">
-            <h2 class="splash-text">Carregando Mod...</h2>
-            <div class="spinner"></div>
-        </div>
-    </div>
-
-    <!-- CABEÇALHO DO SITE -->
-    <header>
-        <h1>GTX 970 Frankenstein: 4GB vs 8GB OC</h1>
-    </header>
-
-    <div class="container">
+    <!-- SESSÃO INTRODUTÓRIA ESTILO APPLE -->
+    <div class="intro-container">
         
-        <!-- INTRODUÇÃO TÉCNICA -->
-        <div class="card">
-            <h2>O Experimento</h2>
-            <p>Este projeto avalia o ganho real de desempenho ao dobrar a capacidade de VRAM de uma NVIDIA GTX 970, superando a limitação física original do chip GM204. Para extrair o máximo do mod, a placa também foi submetida a um forte Overclock (+250MHz no Core e +900MHz na Memória), forçando-a ao limite com a ventoinha (Fan) operando em 100%.</p>
-            
-            <div class="tech-specs">
-                <div class="spec-box">
-                    <h3>Memórias Substituídas</h3>
-                    <p>Removidos os chips originais GDDR5 de 512MB e soldados chips <strong>Samsung HC22 de 1GB</strong>. Esses chips operam nativamente em frequências mais altas (2250MHz), permitindo um Overclock de memória extremamente agressivo sem instabilidade.</p>
-                </div>
-                <div class="spec-box">
-                    <h3>Modificação Eletrônica (Strap)</h3>
-                    <p>Além da solda BGA dos novos chips, foi necessário alterar o esquema elétrico da placa (Strap). Trocamos um resistor ligado ao pino da BIOS por um de <span class="highlight">43k/45k Ohms (GND)</span>, alterando o código binário (para 0111) para que a GPU reconhecesse os 8GB.</p>
-                </div>
-                <div class="spec-box">
-                    <h3>Bancada de Testes</h3>
-                    <p><strong>Processador:</strong> Intel Xeon E5-1660 v3 (8 Cores / 16 Threads, 3.0 GHz Base / 3.5 GHz Turbo, 20MB Cache)<br>
-                       <strong>Memória RAM:</strong> 32 GB DDR4<br>
-                       <strong>SO:</strong> Windows 10 | <strong>Driver:</strong> Último suportado série 900</p>
-                </div>
-                <div class="spec-box">
-                    <h3>Condições Térmicas</h3>
-                    <p>Para o teste com a placa de 8GB OC, a curva de ventoinha foi travada em <span class="highlight">100%</span> devido ao consumo de até 170W. A placa original operou com curva térmica padrão de fábrica.</p>
-                </div>
-            </div>
+        <!-- Fundo Fixo com a Imagem -->
+        <div class="sticky-bg">
+            <img src="ChatGPT Image 3 de set. de 2026, 21_17_17.png" alt="GTX 970 Mod">
         </div>
 
-        <!-- GRÁFICO -->
-        <div class="card">
-            <h2>Comparativo de Desempenho (FPS e Temperatura)</h2>
-            <p>Passe o mouse sobre os pontos do gráfico para ver a diferença de FPS e a temperatura atingida pelo chip gráfico em cada jogo.</p>
-            
-            <div class="grafico-wrapper">
-                <canvas id="graficoResultados"></canvas>
-            </div>
+        <!-- Telas de rolagem (Cada uma ocupa 1 tela inteira de altura) -->
+        <div class="scroll-step">
+            <h1 class="scroll-text">A limitação física<br>parecia o fim.</h1>
         </div>
-
+        <div class="scroll-step">
+            <h1 class="scroll-text">Até decidirmos<br><span>reescrever as regras.</span></h1>
+        </div>
+        <div class="scroll-step">
+            <h1 class="scroll-text">O nascimento da<br>GTX 970 <span>8GB</span></h1>
+        </div>
+        <div class="scroll-step">
+            <h1 class="scroll-text" style="font-size: 1.5rem; color: #aaa;">Continue rolando para ver os resultados <br> ↓</h1>
+        </div>
     </div>
 
-    <!-- SCRIPTS -->
+    <!-- CONTEÚDO PRINCIPAL (Desliza por cima do fundo) -->
+    <div class="main-content">
+        <div class="container">
+            
+            <!-- INTRODUÇÃO TÉCNICA -->
+            <div class="card reveal-element">
+                <h2>O Experimento</h2>
+                <p>Este projeto avalia o ganho real de desempenho ao dobrar a capacidade de VRAM de uma NVIDIA GTX 970, superando a limitação física original do chip GM204. Para extrair o máximo do mod, a placa também foi submetida a um forte Overclock (+250MHz no Core e +900MHz na Memória), forçando-a ao limite com a ventoinha (Fan) operando em 100%.</p>
+                
+                <div class="tech-specs">
+                    <div class="spec-box">
+                        <h3>Memórias Substituídas</h3>
+                        <p>Removidos os chips originais GDDR5 de 512MB e soldados chips <strong>Samsung HC22 de 1GB</strong>. Esses chips operam nativamente em frequências mais altas (2250MHz), permitindo um Overclock de memória extremamente agressivo sem instabilidade.</p>
+                    </div>
+                    <div class="spec-box">
+                        <h3>Modificação Eletrônica (Strap)</h3>
+                        <p>Além da solda BGA, alteramos o esquema elétrico da placa (Strap). Trocamos um resistor ligado ao pino da BIOS por um de <span class="highlight">43k/45k Ohms (GND)</span>, alterando o código binário para que a GPU reconheça os 8GB.</p>
+                    </div>
+                    <div class="spec-box">
+                        <h3>Bancada de Testes</h3>
+                        <p><strong>Processador:</strong> Intel Xeon E5-1660 v3 (8 Cores / 16 Threads)<br>
+                           <strong>Memória RAM:</strong> 32 GB DDR4<br>
+                           <strong>SO:</strong> Windows 10 | <strong>Driver:</strong> Último suportado</p>
+                    </div>
+                    <div class="spec-box">
+                        <h3>Condições Térmicas</h3>
+                        <p>Para o teste com a placa de 8GB OC, a curva de ventoinha foi travada em <span class="highlight">100%</span> devido ao aumento de consumo térmico. A placa original operou com curva térmica padrão.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRÁFICO -->
+            <div class="card reveal-element">
+                <h2>Resultados: 4GB vs 8GB OC</h2>
+                <p>Passe o mouse sobre os pontos do gráfico para visualizar os ganhos de FPS e a variação térmica de cada versão.</p>
+                
+                <div class="grafico-wrapper">
+                    <canvas id="graficoResultados"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS DE ANIMAÇÃO E GRÁFICO -->
     <script>
-        // --- 1. LÓGICA DA ANIMAÇÃO DE INTRODUÇÃO (FADE OUT) ---
-        window.addEventListener("load", function () {
-            // Atraso de 2 segundos (2000ms) para dar tempo de ver a logo carregando
-            setTimeout(function () {
-                const splash = document.getElementById("splash-screen");
-                splash.classList.add("fade-out");
-            }, 2000); 
-        });
+        // --- 1. LÓGICA DE SCROLL ESTILO APPLE (Intersection Observer) ---
+        // Observador para os textos da introdução e pros cartões do conteúdo
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5 // O elemento aparece quando 50% dele estiver na tela
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    // Remove a classe se quiser que a animação repita ao rolar pra cima
+                    entry.target.classList.remove('visible'); 
+                }
+            });
+        }, observerOptions);
+
+        // Seleciona todos os textos da introdução e os blocos de conteúdo principal
+        const elementsToAnimate = document.querySelectorAll('.scroll-text, .reveal-element');
+        elementsToAnimate.forEach(el => scrollObserver.observe(el));
+
 
         // --- 2. LÓGICA DO GRÁFICO (CHART.JS) ---
         const ctx = document.getElementById('graficoResultados').getContext('2d');
@@ -290,7 +343,7 @@
                         labels: { color: '#ffffff', font: { size: 14 }, padding: 20 }
                     },
                     tooltip: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
                         titleFont: { size: 14 },
                         bodyFont: { size: 14 },
                         padding: 15,
@@ -300,14 +353,7 @@
                             label: function(context) {
                                 let label = context.dataset.label || '';
                                 let fps = context.parsed.y;
-                                let temp = '';
-                                
-                                if (context.datasetIndex === 0) {
-                                    temp = temp4GB[context.dataIndex];
-                                } else {
-                                    temp = temp8GB[context.dataIndex];
-                                }
-
+                                let temp = (context.datasetIndex === 0) ? temp4GB[context.dataIndex] : temp8GB[context.dataIndex];
                                 return `${label}: ${fps} FPS  (Temp: ${temp}°C)`;
                             }
                         }
@@ -316,6 +362,5 @@
             }
         });
     </script>
-
 </body>
 </html>
