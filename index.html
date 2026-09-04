@@ -38,54 +38,43 @@
             width: 100%;
             height: 100vh;
             z-index: 0;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        .sticky-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5; /* Deixa a imagem mais escura para o texto brilhar */
-            transform: scale(1.1); /* Um leve zoom para ficar cinematográfico */
-        }
-
-        /* Degradê para suavizar a transição pro conteúdo principal */
-        .sticky-bg::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30vh;
-            background: linear-gradient(to bottom, rgba(18,18,18,0) 0%, rgba(18,18,18,1) 100%);
+            
+            /* Efeito Cinematográfico: Filtro escuro esverdeado por cima da imagem */
+            background-image: linear-gradient(rgba(0, 25, 5, 0.75), rgba(18, 18, 18, 1)), url('NVIDIA-Graphics-Card-PNG-File-thumb.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .scroll-step {
             position: relative;
             z-index: 1;
-            height: 100vh; /* Cada passo tem a altura exata da tela */
+            height: 60vh; /* Altura reduzida para diminuir o espaço entre as frases */
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        /* O primeiro passo tem uma altura maior para a imagem ficar visível logo ao abrir */
+        .first-step {
+            height: 80vh;
+        }
+
         .scroll-text {
             color: #ffffff;
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-shadow: 0px 4px 15px rgba(0,0,0,0.9);
             padding: 0 20px;
             
             /* Animação inicial escondida */
             opacity: 0;
-            transform: translateY(100px) scale(0.9);
-            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(60px) scale(0.95);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Classe ativada pelo JavaScript quando o texto entra na tela */
         .scroll-text.visible {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -93,6 +82,9 @@
 
         .scroll-text span {
             color: var(--nvidia-green);
+            font-size: 3rem;
+            display: block;
+            margin-top: 10px;
         }
 
         /* ==========================================
@@ -101,7 +93,7 @@
         .main-content {
             position: relative;
             z-index: 2;
-            background-color: var(--dark-bg); /* Cobre a imagem de fundo quando rolar */
+            background-color: var(--dark-bg);
             padding-bottom: 50px;
         }
 
@@ -119,10 +111,9 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             border-left: 5px solid var(--nvidia-green);
             
-            /* Efeito de revelar as cartas igual na Apple */
             opacity: 0;
             transform: translateY(50px);
-            transition: all 1s ease-out;
+            transition: all 0.8s ease-out;
         }
 
         .card.visible {
@@ -175,9 +166,9 @@
             font-weight: bold;
         }
 
-        /* Responsividade para celulares */
         @media (max-width: 768px) {
-            .scroll-text { font-size: 2rem; }
+            .scroll-text { font-size: 1.8rem; }
+            .scroll-text span { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -186,53 +177,53 @@
     <!-- SESSÃO INTRODUTÓRIA ESTILO APPLE -->
     <div class="intro-container">
         
-        <!-- Fundo Fixo com a Imagem -->
-        <div class="sticky-bg">
-            <img src="ChatGPT Image 3 de set. de 2026, 21_17_17.png" alt="GTX 970 Mod">
-        </div>
+        <!-- Fundo Fixo com a Imagem Cinematográfica -->
+        <div class="sticky-bg"></div>
 
-        <!-- Telas de rolagem (Cada uma ocupa 1 tela inteira de altura) -->
-        <div class="scroll-step">
-            <h1 class="scroll-text">A limitação física<br>parecia o fim.</h1>
+        <!-- Telas de rolagem com textos mais curtos e diretos -->
+        <div class="scroll-step first-step">
+            <h1 class="scroll-text">O Problema de Hardware:<br><span>Limitada a 4GB originais.</span></h1>
         </div>
         <div class="scroll-step">
-            <h1 class="scroll-text">Até decidirmos<br><span>reescrever as regras.</span></h1>
+            <h1 class="scroll-text">A Solução Eletrônica:<br><span>Chips de 1GB e Alteração de Strap.</span></h1>
         </div>
         <div class="scroll-step">
-            <h1 class="scroll-text">O nascimento da<br>GTX 970 <span>8GB</span></h1>
+            <h1 class="scroll-text">O Resultado Extremo:<br><span>A primeira GTX 970 8GB do mundo.</span></h1>
         </div>
-        <div class="scroll-step">
-            <h1 class="scroll-text" style="font-size: 1.5rem; color: #aaa;">Continue rolando para ver os resultados <br> ↓</h1>
+        <div class="scroll-step" style="height: 30vh;">
+            <h1 class="scroll-text" style="font-size: 1.2rem; text-transform: none; color: #aaa;">
+                Role para ver a análise técnica completa e benchmarks<br> ↓
+            </h1>
         </div>
     </div>
 
-    <!-- CONTEÚDO PRINCIPAL (Desliza por cima do fundo) -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <div class="main-content">
         <div class="container">
             
             <!-- INTRODUÇÃO TÉCNICA -->
             <div class="card reveal-element">
                 <h2>O Experimento</h2>
-                <p>Este projeto avalia o ganho real de desempenho ao dobrar a capacidade de VRAM de uma NVIDIA GTX 970, superando a limitação física original do chip GM204. Para extrair o máximo do mod, a placa também foi submetida a um forte Overclock (+250MHz no Core e +900MHz na Memória), forçando-a ao limite com a ventoinha (Fan) operando em 100%.</p>
+                <p>Este projeto documenta o ganho real de desempenho ao dobrar a capacidade de VRAM de uma NVIDIA GTX 970, contornando a limitação física original do chip GM204. Para extrair o desempenho máximo, aplicamos um Overclock agressivo (+250MHz no Core e +900MHz na Memória), forçando a placa ao limite térmico com a ventoinha operando em 100%.</p>
                 
                 <div class="tech-specs">
                     <div class="spec-box">
                         <h3>Memórias Substituídas</h3>
-                        <p>Removidos os chips originais GDDR5 de 512MB e soldados chips <strong>Samsung HC22 de 1GB</strong>. Esses chips operam nativamente em frequências mais altas (2250MHz), permitindo um Overclock de memória extremamente agressivo sem instabilidade.</p>
+                        <p>Removidos os chips originais de 512MB e soldados chips <strong>Samsung HC22 de 1GB</strong>. Operando nativamente a 2250MHz, esses chips entregam margem para um Overclock extremo com estabilidade total.</p>
                     </div>
                     <div class="spec-box">
                         <h3>Modificação Eletrônica (Strap)</h3>
-                        <p>Além da solda BGA, alteramos o esquema elétrico da placa (Strap). Trocamos um resistor ligado ao pino da BIOS por um de <span class="highlight">43k/45k Ohms (GND)</span>, alterando o código binário para que a GPU reconheça os 8GB.</p>
+                        <p>Além da solda BGA, o esquema elétrico da placa foi alterado. Substituímos um resistor ligado à BIOS por um de <span class="highlight">43k/45k Ohms (GND)</span>, reprogramando a leitura do hardware para reconhecer os novos 8GB.</p>
                     </div>
                     <div class="spec-box">
                         <h3>Bancada de Testes</h3>
-                        <p><strong>Processador:</strong> Intel Xeon E5-1660 v3 (8 Cores / 16 Threads)<br>
-                           <strong>Memória RAM:</strong> 32 GB DDR4<br>
-                           <strong>SO:</strong> Windows 10 | <strong>Driver:</strong> Último suportado</p>
+                        <p><strong>CPU:</strong> Intel Xeon E5-1660 v3 (8 Cores / 16 Threads)<br>
+                           <strong>RAM:</strong> 32 GB DDR4<br>
+                           <strong>Sistema:</strong> Windows 10 | <strong>Driver:</strong> Último suportado</p>
                     </div>
                     <div class="spec-box">
-                        <h3>Condições Térmicas</h3>
-                        <p>Para o teste com a placa de 8GB OC, a curva de ventoinha foi travada em <span class="highlight">100%</span> devido ao aumento de consumo térmico. A placa original operou com curva térmica padrão.</p>
+                        <h3>Gestão Térmica</h3>
+                        <p>Para o teste com a modificação 8GB + OC, a rotação da ventoinha foi fixada em <span class="highlight">100%</span> devido ao alto consumo de energia. O modelo de 4GB operou nas configurações de fábrica.</p>
                     </div>
                 </div>
             </div>
@@ -240,7 +231,7 @@
             <!-- GRÁFICO -->
             <div class="card reveal-element">
                 <h2>Resultados: 4GB vs 8GB OC</h2>
-                <p>Passe o mouse sobre os pontos do gráfico para visualizar os ganhos de FPS e a variação térmica de cada versão.</p>
+                <p>Passe o mouse sobre os pontos do gráfico para analisar as diferenças de quadros por segundo (FPS) e a temperatura de operação.</p>
                 
                 <div class="grafico-wrapper">
                     <canvas id="graficoResultados"></canvas>
@@ -250,14 +241,13 @@
         </div>
     </div>
 
-    <!-- SCRIPTS DE ANIMAÇÃO E GRÁFICO -->
+    <!-- SCRIPTS -->
     <script>
-        // --- 1. LÓGICA DE SCROLL ESTILO APPLE (Intersection Observer) ---
-        // Observador para os textos da introdução e pros cartões do conteúdo
+        // --- 1. LÓGICA DE SCROLL (Intersection Observer) ---
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.5 // O elemento aparece quando 50% dele estiver na tela
+            threshold: 0.5 
         };
 
         const scrollObserver = new IntersectionObserver((entries) => {
@@ -265,16 +255,13 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 } else {
-                    // Remove a classe se quiser que a animação repita ao rolar pra cima
                     entry.target.classList.remove('visible'); 
                 }
             });
         }, observerOptions);
 
-        // Seleciona todos os textos da introdução e os blocos de conteúdo principal
         const elementsToAnimate = document.querySelectorAll('.scroll-text, .reveal-element');
         elementsToAnimate.forEach(el => scrollObserver.observe(el));
-
 
         // --- 2. LÓGICA DO GRÁFICO (CHART.JS) ---
         const ctx = document.getElementById('graficoResultados').getContext('2d');
