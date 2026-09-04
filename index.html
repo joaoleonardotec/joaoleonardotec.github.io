@@ -21,28 +21,30 @@
             padding: 0;
             line-height: 1.6;
         }
+        
+        /* CABEÇALHO EM FORMATO DE BANNER COM A LOGO */
         header {
-            background-color: var(--nvidia-green);
-            padding: 20px;
+            /* ATENÇÃO: Se o nome da sua imagem for diferente de logo.png, mude aqui embaixo */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('ChatGPT Image 3 de set. de 2026, 21_17_17.png');
+            background-size: cover;          /* Cobre toda a extensão da faixa */
+            background-position: center;     /* Centraliza a imagem */
+            background-repeat: no-repeat;
+            
+            padding: 60px 20px;              /* Altura do banner (aumente ou diminue se quiser) */
             text-align: center;
-            box-shadow: 0 4px 15px rgba(118, 185, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            border-bottom: 4px solid var(--nvidia-green);
         }
-        /* Estilo da Logo */
-        .logo-site {
-            max-height: 60px; /* Altere o tamanho da altura aqui se precisar */
-            width: auto;
-            margin-bottom: 10px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
+
         h1 {
             margin: 0;
-            color: var(--dark-bg);
-            font-size: 28px;
+            color: #ffffff;                  /* Texto em branco para destacar em cima da imagem */
+            font-size: 36px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Sombra para facilitar a leitura */
         }
+
         .container {
             max-width: 1000px;
             margin: 40px auto;
@@ -98,11 +100,8 @@
 </head>
 <body>
 
+    <!-- CABEÇALHO (A imagem agora cobre todo o fundo dele) -->
     <header>
-        <!-- INSERÇÃO DA LOGO -->
-        <!-- Substitua 'logo.png' pelo nome exato do arquivo de imagem que você enviou para o GitHub -->
-        <img src="ChatGPT Image 3 de set. de 2026, 21_06_59.png" alt="Logo do Canal" class="logo-site">
-        
         <h1>GTX 970 Frankenstein: 4GB vs 8GB OC</h1>
     </header>
 
