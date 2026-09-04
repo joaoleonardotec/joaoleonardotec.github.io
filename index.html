@@ -14,96 +14,93 @@
             --text-muted: #aaaaaa;
         }
         body {
-            <div id="splash-screen">
-    <div class="splash-content">
-        <h1 style="color: #76b900; font-size: 40px; text-transform: uppercase;">Carregando Experimento...</h1>
-        <div class="spinner"></div>
-    </div>
-</div>
-
-<style>
-    /* Estilo da Tela de Intro cobrindo a tela inteira */
-    #splash-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #121212; /* Fundo escuro do site */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999; /* Fica na frente de tudo */
-        transition: opacity 0.8s ease, visibility 0.8s ease;
-    }
-
-    .splash-content {
-        text-align: center;
-    }
-
-    /* Animação de carregamento simples (um círculo girando) */
-    .spinner {
-        width: 50px;
-        height: 50px;
-        border: 5px solid #333;
-        border-top: 5px solid #76b900;
-        border-radius: 50%;
-        margin: 20px auto 0 auto;
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    /* Classe que faz a intro sumir */
-    .fade-out {
-        opacity: 0;
-        visibility: hidden;
-    }
-</style>
-
-<script>
-    // Script em JavaScript para esconder a intro após 2 segundos (2000 milissegundos)
-    window.addEventListener("load", function () {
-        setTimeout(function () {
-            const splash = document.getElementById("splash-screen");
-            splash.classList.add("fade-out");
-        }, 1500); // Tempo que a animação fica visível
-    });
-</script>
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--dark-bg);
             color: var(--text-main);
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            overflow-x: hidden;
         }
-        
-        /* CABEÇALHO EM FORMATO DE BANNER COM A LOGO */
+
+        /* ==========================================
+           1. ESTILOS DA TELA DE INTRODUÇÃO (SPLASH)
+           ========================================== */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .splash-content {
+            text-align: center;
+        }
+        .splash-logo {
+            max-width: 250px; /* Tamanho da logo no centro da tela */
+            height: auto;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(118, 185, 0, 0.3);
+            border-radius: 10px;
+        }
+        .splash-text {
+            color: var(--nvidia-green);
+            font-size: 24px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #333;
+            border-top: 5px solid var(--nvidia-green);
+            border-radius: 50%;
+            margin: 20px auto 0 auto;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* ==========================================
+           2. ESTILOS DO CABEÇALHO (BANNER)
+           ========================================== */
         header {
-            /* ATENÇÃO: Se o nome da sua imagem for diferente de logo.png, mude aqui embaixo */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('ChatGPT Image 3 de set. de 2026, 21_17_17.png');
-            background-size: cover;          /* Cobre toda a extensão da faixa */
-            background-position: center;     /* Centraliza a imagem */
+            /* Imagem como fundo do cabeçalho */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("ChatGPT Image 3 de set. de 2026, 21_17_17.png");
+            background-size: cover;          
+            background-position: center;     
             background-repeat: no-repeat;
             
-            padding: 60px 20px;              /* Altura do banner (aumente ou diminue se quiser) */
+            padding: 80px 20px; /* Altura do banner */
             text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
             border-bottom: 4px solid var(--nvidia-green);
         }
-
         h1 {
             margin: 0;
-            color: #ffffff;                  /* Texto em branco para destacar em cima da imagem */
+            color: #ffffff;
             font-size: 36px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Sombra para facilitar a leitura */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
+        /* ==========================================
+           3. ESTILOS GERAIS DO CONTEÚDO
+           ========================================== */
         .container {
             max-width: 1000px;
             margin: 40px auto;
@@ -159,7 +156,17 @@
 </head>
 <body>
 
-    <!-- CABEÇALHO (A imagem agora cobre todo o fundo dele) -->
+    <!-- TELA DE INTRODUÇÃO (FADE OUT) -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <!-- A mesma imagem é usada aqui na tela de carregamento -->
+            <img src="ChatGPT Image 3 de set. de 2026, 21_17_17.png" alt="Logo de Carregamento" class="splash-logo">
+            <h2 class="splash-text">Carregando Mod...</h2>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- CABEÇALHO DO SITE -->
     <header>
         <h1>GTX 970 Frankenstein: 4GB vs 8GB OC</h1>
     </header>
@@ -205,7 +212,18 @@
 
     </div>
 
+    <!-- SCRIPTS -->
     <script>
+        // --- 1. LÓGICA DA ANIMAÇÃO DE INTRODUÇÃO (FADE OUT) ---
+        window.addEventListener("load", function () {
+            // Atraso de 2 segundos (2000ms) para dar tempo de ver a logo carregando
+            setTimeout(function () {
+                const splash = document.getElementById("splash-screen");
+                splash.classList.add("fade-out");
+            }, 2000); 
+        });
+
+        // --- 2. LÓGICA DO GRÁFICO (CHART.JS) ---
         const ctx = document.getElementById('graficoResultados').getContext('2d');
 
         const jogos = [
