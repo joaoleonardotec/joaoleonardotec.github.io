@@ -23,14 +23,23 @@
         }
         header {
             background-color: var(--nvidia-green);
-            padding: 25px 20px;
+            padding: 20px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(118, 185, 0, 0.3);
+        }
+        /* Estilo da Logo */
+        .logo-site {
+            max-height: 60px; /* Altere o tamanho da altura aqui se precisar */
+            width: auto;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         h1 {
             margin: 0;
             color: var(--dark-bg);
-            font-size: 32px;
+            font-size: 28px;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
@@ -90,6 +99,10 @@
 <body>
 
     <header>
+        <!-- INSERÇÃO DA LOGO -->
+        <!-- Substitua 'logo.png' pelo nome exato do arquivo de imagem que você enviou para o GitHub -->
+        <img src="ChatGPT Image 3 de set. de 2026, 21_06_59.png" alt="Logo do Canal" class="logo-site">
+        
         <h1>GTX 970 Frankenstein: 4GB vs 8GB OC</h1>
     </header>
 
@@ -137,7 +150,6 @@
     <script>
         const ctx = document.getElementById('graficoResultados').getContext('2d');
 
-        // Nomes dos jogos
         const jogos = [
             'Forza Horizon 6 (FHD/M.Baixo)', 
             'Black Myth: Wukong (FHD/Low)', 
@@ -145,11 +157,9 @@
             'Red Dead Red. 2 (FHD/Low)'
         ];
         
-        // --- DADOS DA GTX 970 4GB (STOCK) ---
         const fps4GB = [49, 44, 60, 50]; 
         const temp4GB = [75, 76, 73, 74]; 
 
-        // --- DADOS DA GTX 970 8GB (MOD + OC) ---
         const fps8GB = [57, 68, 80, 66];
         const temp8GB = [68, 70, 69, 67]; 
 
