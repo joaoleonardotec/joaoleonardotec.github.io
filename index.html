@@ -29,7 +29,7 @@
            ========================================== */
         .intro-container {
             position: relative;
-            padding-top: 10vh; 
+            padding-top: 0; /* Removido o espaço vazio do topo */
         }
 
         .sticky-bg {
@@ -190,35 +190,53 @@
            ========================================== */
         footer {
             background-color: #0a0a0a; 
-            padding: 40px 20px;
+            padding: 0; /* Tiramos o padding para a imagem colar nas bordas */
             text-align: center;
-            border-top: 1px solid #222;
+            border-top: 3px solid var(--nvidia-green);
             position: relative;
             z-index: 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .footer-logo {
-            max-width: 120px; 
-            height: auto;
-            margin-bottom: 15px;
+            width: 100%; /* Cobre 100% da largura do site */
+            height: 250px; /* Altura do painel do rodapé */
+            object-fit: cover; /* Evita que a imagem estique feio */
             opacity: 0.5; 
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             cursor: pointer;
+            display: block;
         }
 
         .footer-logo:hover {
-            opacity: 1; 
-            transform: scale(1.05);
+            opacity: 0.9; 
+            transform: scale(1.03);
+        }
+
+        .footer-text-box {
+            position: absolute;
+            bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            pointer-events: none; /* Deixa o hover passar pela caixa de texto */
         }
 
         .footer-text {
-            color: #666;
-            font-size: 0.9rem;
+            color: #aaa;
+            font-size: 1rem;
             margin: 0;
+            letter-spacing: 1px;
         }
 
         .footer-text span {
             color: var(--nvidia-green);
+            font-weight: bold;
         }
 
         /* Responsividade para celulares */
@@ -236,7 +254,7 @@
             <img src="Gemini.jfif" alt="Placa de Vídeo no fundo">
         </div>
 
-        <div class="scroll-step">
+        <div class="scroll-step" style="height: 30vh; margin-top: 15vh;">
             <h1 class="scroll-text">O Chip GM204:<br><span>Limitado de fábrica a 4GB.</span></h1>
         </div>
         <div class="scroll-step">
@@ -245,7 +263,7 @@
         <div class="scroll-step">
             <h1 class="scroll-text">Projeto GTX 970: <span>8GB VRAM</span><br>+ Overclock Extremo.</h1>
         </div>
-        <div class="scroll-step" style="height: 40vh;">
+        <div class="scroll-step" style="height: 30vh;">
             <h1 class="scroll-text" style="font-size: 1.3rem; color: #aaa; text-shadow: none;">Análise de Desempenho e Temperatura<br> ↓</h1>
         </div>
     </div>
@@ -293,7 +311,9 @@
 
     <footer>
         <img src="ChatGPT Image 3 de set. de 2026, 21_17_17.png" alt="Logo do Canal" class="footer-logo">
-        <p class="footer-text">Projeto <span>Extreme Mod</span> &copy; 2026.</p>
+        <div class="footer-text-box">
+            <p class="footer-text">Projeto <span>Extreme Mod</span> &copy; 2026.</p>
+        </div>
     </footer>
 
     <script>
