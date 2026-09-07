@@ -30,7 +30,7 @@
             top: 20px;
             left: 20px;
             z-index: 100;
-            background-color: rgba(30, 30, 30, 0.8);
+            background-color: rgba(30, 30, 30, 0.85);
             color: var(--text-main);
             text-decoration: none;
             padding: 10px 20px;
@@ -53,7 +53,8 @@
            ========================================== */
         .intro-container {
             position: relative;
-            padding-top: 0; /* Espaço vazio removido */
+            padding-top: 0; /* Zero espaço no topo */
+            margin-top: 0;
         }
 
         .sticky-bg {
@@ -98,11 +99,11 @@
             z-index: 2;
         }
 
-        /* Layout dividido para Rolagem (Texto - Imagem - Texto) */
+        /* Layout dividido para Rolagem Dinâmica */
         .scroll-step {
             position: relative;
             z-index: 3;
-            height: 75vh; /* Levemente maior para acomodar as imagens */
+            height: 85vh; /* Altura generosa para leitura imersiva */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -113,11 +114,11 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px;
             padding: 0 40px;
             
             opacity: 0;
-            transform: translateY(60px) scale(0.95);
+            transform: translateY(50px) scale(0.95);
             transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
@@ -129,10 +130,11 @@
         .side-text {
             flex: 1;
             color: #ffffff;
-            font-size: 1.4rem;
+            font-size: 1.15rem; /* Textos maiores e mais encorpados */
             text-align: left;
-            text-shadow: 0px 5px 15px rgba(0,0,0,1);
-            padding: 20px;
+            text-shadow: 0px 4px 12px rgba(0,0,0,0.9);
+            padding: 15px;
+            line-height: 1.7;
         }
 
         .side-text.right-text {
@@ -142,26 +144,34 @@
         .side-text span {
             color: var(--nvidia-green);
             font-weight: bold;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .center-image {
-            flex: 1.5;
+            flex: 1.4;
             display: flex;
             justify-content: center;
-            padding: 0 20px;
+            padding: 0 25px;
         }
 
-        /* Estilo da foto que ficará no centro */
+        /* Fotos maiores e destacadas no centro */
         .center-image img {
-            max-width: 100%;
-            max-height: 350px;
-            object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(118, 185, 0, 0.5); /* Borda esverdeada leve */
+            width: 100%;
+            max-width: 500px;
+            max-height: 450px; /* Aumentado para dar destaque visual */
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.9);
+            border: 2px solid rgba(118, 185, 0, 0.7);
+            transition: transform 0.5s ease;
+        }
+
+        .center-image img:hover {
+            transform: scale(1.02);
         }
 
         /* ==========================================
@@ -262,7 +272,7 @@
 
         .footer-logo {
             width: 100%; 
-            height: 120px; /* Altura reduzida igual a da Home */
+            height: 120px; 
             object-fit: cover; 
             opacity: 0.5; 
             transition: opacity 0.4s ease, transform 0.4s ease;
@@ -305,80 +315,91 @@
             }
             .side-text, .side-text.right-text {
                 text-align: center;
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
-            .center-image img { max-height: 200px; }
+            .center-image img { max-height: 250px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- BOTÃO VOLTAR -->
     <a href="index.html" class="btn-voltar">← Início</a>
 
+    <!-- SESSÃO INTRODUTÓRIA CINEMATOGRÁFICA -->
     <div class="intro-container">
         
+        <!-- Fundo Fixo -->
         <div class="sticky-bg">
             <div class="overlay-green"></div> 
             <img src="Gemini.jfif" alt="Placa de Vídeo no fundo">
         </div>
 
+        <!-- Bloco 1: O Chip -->
         <div class="scroll-step">
             <div class="scroll-layout reveal-element">
                 <div class="side-text left-text">
                     <span>O Limite do GM204</span>
-                    A arquitetura original esconde um potencial inexplorado, travado artificialmente para segmentar o mercado.
+                    A arquitetura Maxwell original esconde um potencial bruto inexplorado. De fábrica, a controladora foi limitada artificialmente para segmentar o mercado corporativo e de consumo.
                 </div>
                 <div class="center-image">
+                    <!-- FOTO 1: foto-chip.png -->
                     <img src="foto-chip.png" alt="Detalhe do Chip GM204">
                 </div>
                 <div class="side-text right-text">
                     <span>Engenharia Reversa</span>
-                    Nosso objetivo foi mapear os barramentos de memória e forçar a GPU a endereçar 8GB reais de VRAM.
+                    Nosso desafio técnico começou mapeando as linhas de barramento e os endereçamentos físicos, provando que o chip suporta muito mais do que os 4GB tradicionais.
                 </div>
             </div>
         </div>
 
+        <!-- Bloco 2: A Solda -->
         <div class="scroll-step">
             <div class="scroll-layout reveal-element">
                 <div class="side-text left-text">
-                    <span>Retrabalho BGA</span>
-                    A substituição exige precisão cirúrgica. Removemos todos os módulos originais de 512MB da placa.
+                    <span>Retrabalho BGA Avançado</span>
+                    A modificação exige uma estação de solda de alta precisão. Removemos completamente todos os módulos originais de 512MB integrados ao PCB da placa.
                 </div>
                 <div class="center-image">
+                    <!-- FOTO 2: foto-solda.png -->
                     <img src="foto-solda.png" alt="Processo de Solda das Memórias">
                 </div>
                 <div class="side-text right-text">
                     <span>Chips de Alta Densidade</span>
-                    No lugar, soldamos chips Samsung HC22 de 1GB, não apenas dobrando a capacidade, mas elevando as frequências.
+                    No lugar, soldamos chips Samsung HC22 de 1GB. Essa substituição dobra a capacidade total e traz memórias capazes de operar em frequências muito mais elevadas.
                 </div>
             </div>
         </div>
 
+        <!-- Bloco 3: Modificação Elétrica -->
         <div class="scroll-step">
             <div class="scroll-layout reveal-element">
                 <div class="side-text left-text">
-                    <span>Hardware Strap</span>
-                    Soldar os chips não basta. A BIOS ainda procuraria 4GB. A solução foi alterar os resistores de controle.
+                    <span>Hardware Strap Mod</span>
+                    Apenas trocar os chips físicos não basta. A BIOS original continuaria procurando o arranjo antigo. A solução exigiu alterar fisicamente a rede de resistores da placa.
                 </div>
                 <div class="center-image">
+                    <!-- FOTO 3: foto-strap.png -->
                     <img src="foto-strap.png" alt="Modificação do Resistor de Strap">
                 </div>
                 <div class="side-text right-text">
-                    <span>O Desbloqueio</span>
-                    Alterando o código binário do hardware via GND (43k Ohms), o sistema operacional reconhece os 8GB nativamente.
+                    <span>Destravamento Nativo</span>
+                    Modificando o resistor de strap ligado ao pino de configuração (GND com valor específico), forçamos o sistema a reconhecer o novo banco de 8GB sem conflitos de driver.
                 </div>
             </div>
         </div>
 
-        <div class="scroll-step" style="height: 30vh;">
+        <!-- Bloco Final da Introdução -->
+        <div class="scroll-step" style="height: 35vh;">
             <div class="scroll-layout reveal-element" style="justify-content: center; flex-direction: column;">
-                <h1 style="font-size: 1.5rem; color: #aaa; text-align: center; text-transform: uppercase;">
-                    Análise de Desempenho e Temperatura<br> ↓
+                <h1 style="font-size: 1.4rem; color: #aaa; text-align: center; text-transform: uppercase; letter-spacing: 2px;">
+                    Confira abaixo os dados completos de Desempenho e Temperatura<br> ↓
                 </h1>
             </div>
         </div>
     </div>
 
+    <!-- CONTEÚDO PRINCIPAL -->
     <div class="main-content">
         <div class="container">
             
@@ -389,11 +410,11 @@
                 <div class="tech-specs">
                     <div class="spec-box">
                         <h3>Memórias Substituídas</h3>
-                        <p>Removidos os chips originais GDDR5 de 512MB e soldados chips <strong>Samsung HC22 de 1GB</strong>. Esses chips operam nativamente em frequências mais altas (2250MHz).</p>
+                        <p>Removidos os chips originais GDDR5 de 512MB e soldados chips <strong>Samsung HC22 de 1GB</strong>. Operam nativamente em frequências mais altas (2250MHz).</p>
                     </div>
                     <div class="spec-box">
                         <h3>Modificação Eletrônica (Strap)</h3>
-                        <p>Além da solda BGA, alteramos o esquema elétrico da placa (Strap). Trocamos um resistor ligado ao pino da BIOS por um de <span class="highlight">43k/45k Ohms (GND)</span>.</p>
+                        <p>Além da solda BGA, alteramos o esquema elétrico da placa (Strap) trocando o resistor ligado ao pino da BIOS por um de <span class="highlight">43k/45k Ohms (GND)</span>.</p>
                     </div>
                     <div class="spec-box">
                         <h3>Bancada de Testes</h3>
@@ -408,6 +429,7 @@
                 </div>
             </div>
 
+            <!-- GRÁFICO -->
             <div class="card reveal-element">
                 <h2>Resultados: 4GB vs 8GB OC</h2>
                 <p>Passe o mouse sobre os pontos do gráfico para visualizar os ganhos de FPS e a variação térmica de cada versão.</p>
@@ -420,6 +442,7 @@
         </div>
     </div>
 
+    <!-- RODAPÉ REDUZIDO -->
     <footer>
         <img src="ChatGPT Image 3 de set. de 2026, 21_17_17.png" alt="Logo do Canal" class="footer-logo">
         <div class="footer-text-box">
@@ -427,11 +450,12 @@
         </div>
     </footer>
 
+    <!-- SCRIPTS -->
     <script>
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.4 // Ajustado para 0.4 para a animação das fotos ativar um pouco mais cedo
+            threshold: 0.35 
         };
 
         const scrollObserver = new IntersectionObserver((entries) => {
