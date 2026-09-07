@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -25,12 +24,36 @@
             overflow-x: hidden;
         }
 
+        /* BOTÃO VOLTAR */
+        .btn-voltar {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background-color: rgba(30, 30, 30, 0.8);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border-left: 3px solid var(--nvidia-green);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-voltar:hover {
+            background-color: var(--nvidia-green);
+            color: #000;
+        }
+
         /* ==========================================
            1. INTRODUÇÃO CINEMATOGRÁFICA (SCROLL)
            ========================================== */
         .intro-container {
             position: relative;
-            padding-top: 0; /* Removido o espaço vazio do topo */
+            padding-top: 0; /* Espaço vazio removido */
         }
 
         .sticky-bg {
@@ -75,36 +98,70 @@
             z-index: 2;
         }
 
+        /* Layout dividido para Rolagem (Texto - Imagem - Texto) */
         .scroll-step {
             position: relative;
             z-index: 3;
-            height: 60vh; 
+            height: 75vh; /* Levemente maior para acomodar as imagens */
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .scroll-text {
-            color: #ffffff;
-            font-size: 2.8rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0px 5px 20px rgba(0,0,0,0.9);
-            padding: 0 20px;
+        .scroll-layout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 40px;
             
             opacity: 0;
             transform: translateY(60px) scale(0.95);
             transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .scroll-text.visible {
+        .scroll-layout.visible {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
 
-        .scroll-text span {
+        .side-text {
+            flex: 1;
+            color: #ffffff;
+            font-size: 1.4rem;
+            text-align: left;
+            text-shadow: 0px 5px 15px rgba(0,0,0,1);
+            padding: 20px;
+        }
+
+        .side-text.right-text {
+            text-align: right;
+        }
+
+        .side-text span {
             color: var(--nvidia-green);
+            font-weight: bold;
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .center-image {
+            flex: 1.5;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        /* Estilo da foto que ficará no centro */
+        .center-image img {
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(118, 185, 0, 0.5); /* Borda esverdeada leve */
         }
 
         /* ==========================================
@@ -187,11 +244,11 @@
         }
 
         /* ==========================================
-           3. RODAPÉ (FOOTER)
+           3. RODAPÉ (ALTURA REDUZIDA 120px)
            ========================================== */
         footer {
             background-color: #0a0a0a; 
-            padding: 0; /* Tiramos o padding para a imagem colar nas bordas */
+            padding: 0; 
             text-align: center;
             border-top: 3px solid var(--nvidia-green);
             position: relative;
@@ -204,9 +261,9 @@
         }
 
         .footer-logo {
-            width: 100%; /* Cobre 100% da largura do site */
-            height: 250px; /* Altura do painel do rodapé */
-            object-fit: cover; /* Evita que a imagem estique feio */
+            width: 100%; 
+            height: 120px; /* Altura reduzida igual a da Home */
+            object-fit: cover; 
             opacity: 0.5; 
             transition: opacity 0.4s ease, transform 0.4s ease;
             cursor: pointer;
@@ -222,15 +279,15 @@
             position: absolute;
             bottom: 20px;
             background-color: rgba(0, 0, 0, 0.8);
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            pointer-events: none; /* Deixa o hover passar pela caixa de texto */
+            pointer-events: none; 
         }
 
         .footer-text {
             color: #aaa;
-            font-size: 1rem;
+            font-size: 0.9rem;
             margin: 0;
             letter-spacing: 1px;
         }
@@ -241,12 +298,22 @@
         }
 
         /* Responsividade para celulares */
-        @media (max-width: 768px) {
-            .scroll-text { font-size: 1.8rem; }
+        @media (max-width: 900px) {
+            .scroll-layout {
+                flex-direction: column;
+                text-align: center;
+            }
+            .side-text, .side-text.right-text {
+                text-align: center;
+                font-size: 1.1rem;
+            }
+            .center-image img { max-height: 200px; }
         }
     </style>
 </head>
 <body>
+
+    <a href="index.html" class="btn-voltar">← Início</a>
 
     <div class="intro-container">
         
@@ -255,17 +322,60 @@
             <img src="Gemini.jfif" alt="Placa de Vídeo no fundo">
         </div>
 
-        <div class="scroll-step" style="height: 30vh; margin-top: 15vh;">
-            <h1 class="scroll-text">O Chip GM204:<br><span>Limitado de fábrica a 4GB.</span></h1>
-        </div>
         <div class="scroll-step">
-            <h1 class="scroll-text">Engenharia reversa<br><span>para quebrar a restrição de hardware.</span></h1>
+            <div class="scroll-layout reveal-element">
+                <div class="side-text left-text">
+                    <span>O Limite do GM204</span>
+                    A arquitetura original esconde um potencial inexplorado, travado artificialmente para segmentar o mercado.
+                </div>
+                <div class="center-image">
+                    <img src="foto-chip.png" alt="Detalhe do Chip GM204">
+                </div>
+                <div class="side-text right-text">
+                    <span>Engenharia Reversa</span>
+                    Nosso objetivo foi mapear os barramentos de memória e forçar a GPU a endereçar 8GB reais de VRAM.
+                </div>
+            </div>
         </div>
+
         <div class="scroll-step">
-            <h1 class="scroll-text">Projeto GTX 970: <span>8GB VRAM</span><br>+ Overclock Extremo.</h1>
+            <div class="scroll-layout reveal-element">
+                <div class="side-text left-text">
+                    <span>Retrabalho BGA</span>
+                    A substituição exige precisão cirúrgica. Removemos todos os módulos originais de 512MB da placa.
+                </div>
+                <div class="center-image">
+                    <img src="foto-solda.png" alt="Processo de Solda das Memórias">
+                </div>
+                <div class="side-text right-text">
+                    <span>Chips de Alta Densidade</span>
+                    No lugar, soldamos chips Samsung HC22 de 1GB, não apenas dobrando a capacidade, mas elevando as frequências.
+                </div>
+            </div>
         </div>
+
+        <div class="scroll-step">
+            <div class="scroll-layout reveal-element">
+                <div class="side-text left-text">
+                    <span>Hardware Strap</span>
+                    Soldar os chips não basta. A BIOS ainda procuraria 4GB. A solução foi alterar os resistores de controle.
+                </div>
+                <div class="center-image">
+                    <img src="foto-strap.png" alt="Modificação do Resistor de Strap">
+                </div>
+                <div class="side-text right-text">
+                    <span>O Desbloqueio</span>
+                    Alterando o código binário do hardware via GND (43k Ohms), o sistema operacional reconhece os 8GB nativamente.
+                </div>
+            </div>
+        </div>
+
         <div class="scroll-step" style="height: 30vh;">
-            <h1 class="scroll-text" style="font-size: 1.3rem; color: #aaa; text-shadow: none;">Análise de Desempenho e Temperatura<br> ↓</h1>
+            <div class="scroll-layout reveal-element" style="justify-content: center; flex-direction: column;">
+                <h1 style="font-size: 1.5rem; color: #aaa; text-align: center; text-transform: uppercase;">
+                    Análise de Desempenho e Temperatura<br> ↓
+                </h1>
+            </div>
         </div>
     </div>
 
@@ -279,11 +389,11 @@
                 <div class="tech-specs">
                     <div class="spec-box">
                         <h3>Memórias Substituídas</h3>
-                        <p>Removidos os chips originais GDDR5 de 512MB e soldados chips <strong>Samsung HC22 de 1GB</strong>. Esses chips operam nativamente em frequências mais altas (2250MHz), permitindo um Overclock de memória extremamente agressivo sem instabilidade.</p>
+                        <p>Removidos os chips originais GDDR5 de 512MB e soldados chips <strong>Samsung HC22 de 1GB</strong>. Esses chips operam nativamente em frequências mais altas (2250MHz).</p>
                     </div>
                     <div class="spec-box">
                         <h3>Modificação Eletrônica (Strap)</h3>
-                        <p>Além da solda BGA, alteramos o esquema elétrico da placa (Strap). Trocamos um resistor ligado ao pino da BIOS por um de <span class="highlight">43k/45k Ohms (GND)</span>, alterando o código binário para que a GPU reconheça os 8GB.</p>
+                        <p>Além da solda BGA, alteramos o esquema elétrico da placa (Strap). Trocamos um resistor ligado ao pino da BIOS por um de <span class="highlight">43k/45k Ohms (GND)</span>.</p>
                     </div>
                     <div class="spec-box">
                         <h3>Bancada de Testes</h3>
@@ -293,7 +403,7 @@
                     </div>
                     <div class="spec-box">
                         <h3>Condições Térmicas</h3>
-                        <p>Para o teste com a placa de 8GB OC, a curva de ventoinha foi travada em <span class="highlight">100%</span> devido ao aumento de consumo térmico. A placa original operou com curva térmica padrão.</p>
+                        <p>Para o teste com a placa de 8GB OC, a curva de ventoinha foi travada em <span class="highlight">100%</span> devido ao aumento de consumo térmico.</p>
                     </div>
                 </div>
             </div>
@@ -321,7 +431,7 @@
         const observerOptions = {
             root: null,
             rootMargin: '0px',
-            threshold: 0.6 
+            threshold: 0.4 // Ajustado para 0.4 para a animação das fotos ativar um pouco mais cedo
         };
 
         const scrollObserver = new IntersectionObserver((entries) => {
@@ -334,7 +444,7 @@
             });
         }, observerOptions);
 
-        const elementsToAnimate = document.querySelectorAll('.scroll-text, .reveal-element');
+        const elementsToAnimate = document.querySelectorAll('.reveal-element');
         elementsToAnimate.forEach(el => scrollObserver.observe(el));
 
         const ctx = document.getElementById('graficoResultados').getContext('2d');
